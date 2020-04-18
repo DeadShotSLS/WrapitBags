@@ -5,7 +5,7 @@ include("db.php");
 error_reporting(0);
 session_start();
 
-if(empty($_SESSION['user_id']))  //if usser is not login redirected baack to login page
+if(empty($_SESSION['uid']))  //if usser is not login redirected baack to login page
 {
 	header('location:login.php');
 }
@@ -22,10 +22,11 @@ else
     <link rel="icon" href="#">
     <title>Wrapit Bags</title>
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/animsition.min.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet">
 <style type="text/css" rel="stylesheet">

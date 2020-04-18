@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-if(!isset($_SESSION["user_id"])){
+if(!isset($_SESSION["uid"])){
 	header("location:index.php");
 }
 
@@ -41,9 +41,11 @@ if (isset($_GET["st"])) {
 						<head>
 							<meta charset="UTF-8">
 							<title>Wrapit Bags</title>
-							<link rel="stylesheet" href="css/bootstrap.min.css"/>
-							<script src="js/jquery2.js"></script>
-							<script src="js/bootstrap.min.js"></script>
+							<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+							<!-- jQuery library -->
+							<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+							<!-- Latest compiled JavaScript -->
+							<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 							<script src="main.js"></script>
 							<style>
 								table tr td {padding:10px;}

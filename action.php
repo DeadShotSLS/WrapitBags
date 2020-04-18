@@ -140,7 +140,7 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 					<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
 					<b>Product is already added into the cart Continue Shopping..!</b>
 				</div>
-			";//not in video
+			";
 		} else {
 			$sql = "INSERT INTO `cart`
 			(`p_id`, `ip_add`, `user_id`, `qty`) 
@@ -155,7 +155,7 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 			}
 		}
 		}else{
-			$sql = "SELECT id FROM cart WHERE ip_add = '$ip_add' AND p_id = '$p_id' AND user_id = -1";
+			$sql = "SELECT id FROM cart WHERE ip_add = '$ip_add' AND p_id = '$p_id' AND user_id ='-1'";
 			$query = mysqli_query($db,$sql);
 			if (mysqli_num_rows($query) > 0) {
 				echo "
@@ -235,7 +235,7 @@ if (isset($_POST["Common"])) {
 				
 			}
 			?>
-				<a style="float:right;" href="cart.php" class="btn btn-warning">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-edit"></span></a>
+			<a style="float:right;" href="cart.php" class="btn btn-warning">Edit&nbsp;&nbsp;<span class="glyphicon glyphicon-edit"></span></a>
 			<?php
 			exit();
 		}
@@ -253,6 +253,8 @@ if (isset($_POST["Common"])) {
 					$product_image = $row["product_image"];
 					$cart_item_id = $row["id"];
 					$qty = $row["qty"];
+
+					//$_SESSION['cart_id'] = $row['id'];
 
 					echo 
 						'<div class="row">
@@ -277,21 +279,22 @@ if (isset($_POST["Common"])) {
 							<div class="col-md-4">
 							<b class="net_total" style="font-size:20px;"> </b>
 					</div>';
-				if (!isset($_SESSION["user_id"])) {
+				if (!isset($_SESSION["uid"])) {
 					echo '<input type="submit" style="float:right;" name="login_user_with_product" class="btn btn-info btn-lg" value="Ready to Checkout" >
 							</form>';
 					
-				}else if(isset($_SESSION["user_id"])){
+				}else if(isset($_SESSION["uid"])){
 					//Paypal checkout form
+					
 					echo '
 						</form>
 						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 							<input type="hidden" name="cmd" value="_cart">
-							<input type="hidden" name="business" value="sb-jljco1246368@business.example.com">
+							<input type="hidden" name="business" value="sb-u8clg1474544@business.example.com">
 							<input type="hidden" name="upload" value="1">';
 							  
 							$x=0;
-							$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[user_id]'";
+							$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
 							$query = mysqli_query($db,$sql);
 							while($row=mysqli_fetch_array($query)){
 								$x++;
@@ -301,24 +304,17 @@ if (isset($_POST["Common"])) {
 								     <input type="hidden" name="amount_'.$x.'" value="'.$row["product_price"].'">
 								     <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
 								}
+								
 							  
 							echo   
-								'<input type="hidden" name="return" value="http://localhost/store/payment_success.php"/>
-					                <input type="hidden" name="notify_url" value="http://localhost/store/payment_success.php">
-									<input type="hidden" name="cancel_return" value="http://localhost/store/cancel.php"/>
-									<input type="hidden" name="currency_code" value="LKR"/>
-									<input type="hidden" name="custom" value="'.$_SESSION["user_id"].'"/>
+								'<input type="hidden" name="return" value="http://localhost/wrapitbags/payment_success.php"/>
+					                <input type="hidden" name="notify_url" value="http://localhost/wrapitbags/payment_success.php">
+									<input type="hidden" name="cancel_return" value="http://localhost/wrapitbags/cancel.php"/>
+									<input type="hidden" name="currency_code" value="USD"/>
+									<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
 									<div class=choise style="margin: 20px 0 0 200px;">
 									<ul class=" list-unstyled"  style="float:right;margin-right:120px;">
-                                            <li>
-                                                <label class="custom-control custom-radio  m-b-20">
-                                                    <input name="mod" id="home" checked value="COD" type="radio" class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description">Payment on delivery</span>
-                                                    <br>  </label>
-                                            </li>
-                                            <li>
-                                                <label class="custom-control custom-radio  m-b-10">
-                                                    <input name="mod" id="paypal"  type="radio" value="paypal"  class="custom-control-input"> <span class="custom-control-indicator"></span> <span class="custom-control-description">Paypal <img src="images/paypal.jpg" alt="" width="90"></span> </label>
-											</li>
+                                            
 											<li>
 											<input  type="submit" name="submit" style="padding-right:120px"
 											class="btn btn-info btn-lg" alt="PayPal Checkout"

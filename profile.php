@@ -10,9 +10,12 @@ if(!isset($_SESSION["uid"])){
 	<head>
 		<meta charset="UTF-8">
 		<title>Wrapit Bags</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css"/>
-		<script src="js/jquery2.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		
 		<script src="main.js"></script>
 		<style>
 			@media screen and (max-width:480px){
@@ -41,32 +44,36 @@ if(!isset($_SESSION["uid"])){
 				<li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
+				<!-- <li><a href="#" id="cart_container" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a> -->
+				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
 					<div class="dropdown-menu" style="width:400px;">
 						<div class="panel panel-success">
 							<div class="panel-heading">
 								<div class="row">
-									<div class="col-md-3 col-xs-3">Sl.No</div>
-									<div class="col-md-3 col-xs-3">Product Image</div>
-									<div class="col-md-3 col-xs-3">Product Name</div>
-									<div class="col-md-3 col-xs-3">Price in Rs.</div>
+									<div class="col-md-3">Sl.No</div>
+									<div class="col-md-3">Product Image</div>
+									<div class="col-md-3">Product Name</div>
+									<div class="col-md-3">Price in Rs.</div>
 								</div>
 							</div>
 							<div class="panel-body">
 								<div id="cart_product">
-								<!--<div class="row">
-									<div class="col-md-3">Sl.No</div>
-									<div class="col-md-3">Product Image</div>
-									<div class="col-md-3">Product Name</div>
-									<div class="col-md-3">Price in $.</div>
-								</div>-->
+								
 								</div>
 							</div>
-							<div class="panel-footer"></div>
+							<!-- <div class="panel-footer"></div> -->
 						</div>
 					</div>
 				</li>
-				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><?php echo "Hi,".$_SESSION["name"]; ?></a>
+				
+				<?php
+						echo  '<li class="nav-item"><a href="your_orders.php" class="nav-link active">your orders</a> </li>';
+						echo  '<li class="nav-item"><a href="logout.php" class="nav-link active">logout</a> </li>';
+
+						?>
+				<!-- <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>
+				<?php //echo "Hi,".$_SESSION["name"]; ?>
+				</a>
 					<ul class="dropdown-menu">
 						<li><a href="cart.php" style="text-decoration:none; color:blue;"><span class="glyphicon glyphicon-shopping-cart">Cart</a></li>
 						<li class="divider"></li>
@@ -76,7 +83,7 @@ if(!isset($_SESSION["uid"])){
 						<li class="divider"></li>
 						<li><a href="logout.php" style="text-decoration:none; color:blue;">Logout</a></li>
 					</ul>
-				</li>
+				</li> -->
 				
 			</ul>
 		</div>
@@ -98,8 +105,8 @@ if(!isset($_SESSION["uid"])){
 					<li><a href="#">Categories</a></li>
 					<li><a href="#">Categories</a></li>
 				</div> -->
-				<div id="get_brand">
-				</div>
+				<!-- <div id="get_brand">
+				</div> -->
 				<!--<div class="nav nav-pills nav-stacked">
 					<li class="active"><a href="#"><h4>Brand</h4></a></li>
 					<li><a href="#">Categories</a></li>

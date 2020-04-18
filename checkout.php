@@ -5,7 +5,7 @@ include("db.php");
 include_once 'product-action.php';
 error_reporting(0);
 session_start();
-if(empty($_SESSION["user_id"]))
+if(empty($_SESSION["uid"]))
 {
 	header('location:login.php');
 }
@@ -16,10 +16,10 @@ else{
     
     if($_POST['submit'])
     {
-        $item="SELECT p_id,qty FROM cart WHERE user_id='".$_SESSION["user_id"]."'";
+        
         
 
-    $SQL="insert into orders(user_id,product_id,qty,p_status,price) values('".$_SESSION["user_id"]."','".$_SESSION["product_id"]."','".$_SESSION["qty"]."','".$_SESSION["p_status"]."','".$_SESSION["price"]."')";
+    $SQL="insert into orders(user_id,product_id,qty,p_status,price) values('".$_SESSION["uid"]."','".$_SESSION["product_id"]."','".$_SESSION["qty"]."','".$_SESSION["p_status"]."','".$_SESSION["price"]."')";
 
         mysqli_query($db,$SQL);
         
@@ -43,13 +43,13 @@ else{
     <meta name="author" content="">
     <link rel="icon" href="#">
     <title>Wrapit Bags checkout</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/animsition.min.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet"> </head>
+    </head>
 <body>
      <div class="site-wrapper animsition" data-animsition-in="fade-in" data-animsition-out="fade-out">
     <div class="site-wrapper">

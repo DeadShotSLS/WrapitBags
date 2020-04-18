@@ -5,12 +5,11 @@
   <meta charset="UTF-8">
   <title>login</title>
   
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+	<link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
+	<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
 
-  <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900|RobotoDraft:400,100,300,500,700,900'>
-<link rel='stylesheet prefetch' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
-
-      <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/login.css">
 
 	  <style type="text/css">
 	  #buttn{
@@ -39,8 +38,11 @@ if(isset($_POST['submit']))   // if button is submit
 	
 	if(is_array($row))  // if matching records in the array & if everything is right
 		{
-				$_SESSION["user_id"] = $row['user_id']; // put user id into temp session
-					header("refresh:1;url=index.php"); // redirect to index.php page
+				$_SESSION["uid"] = $row['user_id']; // put user id into temp session
+				$_SESSION["name"] = $row['username'];
+				header("refresh:1;url=index.php"); // redirect to index.php page
+
+				
 		} 
 	else
 		{
