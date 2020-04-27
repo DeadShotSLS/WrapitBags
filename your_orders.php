@@ -166,45 +166,39 @@ only screen and (max-width: 760px),
                     <div class="row">
                         <div class="col-xs-12 col-sm-7 col-md-7 ">
                             <div class="bg-gray restaurant-entry">
-                                <div class="row">
+                            <div class="row">
 								
 						<table >
 						  <thead>
 							<tr>
-							
 							<th>Item Id</th>
 							<th>Quantity</th>
 							<th>price</th>
-							<th>status</th>
-							
-							<th>Action</th>
-							  
-							</tr>
+                            <th>status</th>						
+                            </tr>
 						  </thead>
 						  <tbody>
 						  
 						  
-							<?php 
+						<?php 
 						// displaying current session user login orders 
-						$query_res= mysqli_query($db,"select * FROM orders where user_id='".$_SESSION['user_id']."'");
+						$query_res= mysqli_query($db,"select * FROM orders where user_id='".$_SESSION['uid']."'");
                         if(!mysqli_num_rows($query_res) > 0 )
                                 {
                                     echo '<td colspan="6"><center>You have No orders Placed yet. </center></td>';
                                 }
                             else
                                 {			      
-										  
                                 while($row=mysqli_fetch_array($query_res))
                                 {
-						
-        ?>
+                        ?>
                                 <tr>	
                                 <td data-column="Item"> <?php echo $row['product_id']; ?></td>
                                 <td data-column="Quantity"> <?php echo $row['qty']; ?></td>
                                 <td data-column="price">Rs<?php echo $row['price']; ?></td>
                                 <td data-column="status"> 
                             <?php 
-                                $status=$row['status'];
+                                $status=$row['p_status'];
                                 if($status=="" or $status=="NULL")
                                 {
                                 ?>
@@ -232,35 +226,16 @@ only screen and (max-width: 760px),
                                 } 
                                 ?>
                                 </td>
-                                
-                                <td data-column="Action"> <a href="delete_orders.php?order_del=<?php echo $row['order_id'];?>" onclick="return confirm('Are you sure you want to cancel your order?');" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
-                                </td>
-                                    
 								</tr>
-												
-											
 							<?php }} ?>					
-							
-							
-										
-						
 						  </tbody>
 					</table>
-						
-					
-                                    
                         </div>
-                                <!--end:row -->
+                    <!--end:row -->
                     </div>
-                         
-                            
-                                
                     </div>
-                          
-                          
-                           
-                        </div>
-                    </div>
+                 </div>
+                </div>
                 </div>
             </section>
            

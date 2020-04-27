@@ -10,18 +10,15 @@ if(isset($_POST['submit'] ))
 {
     if(empty($_POST['cat_title']))
 		{
-			$error = '<div class="alert alert-danger alert-dismissible fade show">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <strong>field Required!</strong>
-            </div>';
+        $error = '<div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>field Required!</strong>
+        </div>';
     }
 	else
 	{
-		
 	$check_cat= mysqli_query($db, "SELECT cat_title FROM categories where cat_title = '".$_POST['cat_title']."' ");
 
-	
-	
 	if(mysqli_num_rows($check_cat) > 0)
      {
     	$error = '<div class="alert alert-danger alert-dismissible fade show">
@@ -30,17 +27,14 @@ if(isset($_POST['submit'] ))
         </div>';
      }
 	else{
-       
 	
 	$mql = "INSERT INTO categories(cat_title) VALUES('".$_POST['cat_title']."')";
 	mysqli_query($db, $mql);
         $success = 	'<div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <strong>Congrass!</strong> New Category Added Successfully.</br></div>';
-	
     }
 	}
-
 }
 
 
@@ -60,12 +54,6 @@ if(isset($_POST['submit'] ))
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 
 <body class="fix-header">
@@ -76,9 +64,6 @@ if(isset($_POST['submit'] ))
     </div>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
-        <!-- header header  -->
-        
-        <!-- End header header -->
         <!-- Left Sidebar  -->
         <div class="left-sidebar">
             <!-- Sidebar scroll-->
@@ -91,7 +76,6 @@ if(isset($_POST['submit'] ))
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="dashboard.php">Dashboard</a></li>
-                                
                             </ul>
                         </li>
                         <li class="nav-label">Log</li>
@@ -99,27 +83,20 @@ if(isset($_POST['submit'] ))
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="allusers.php">All Users</a></li>
 								<li><a href="add_users.php">Add Users</a></li>
-								
-                               
                             </ul>
                         </li>
-                        
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive f-s-20 color-warning" aria-hidden="true"></i><span class="hide-menu">Store</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="add_category.php">Add Category</a></li>
                                 <li><a href="add_menu.php">Add Products</a></li>
                                 <li><a href="all_menu.php">All Products</a></li>
-                              
-                                
                             </ul>
                         </li>
 						 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Orders</span></a>
                             <ul aria-expanded="false" class="collapse">
 								<li><a href="all_orders.php">All Orders</a></li>
-								  
                             </ul>
                         </li>
-                         
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -132,31 +109,19 @@ if(isset($_POST['submit'] ))
             <!-- Bread crumb -->
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
-                    <h3 class="text-primary">Dashboard</h3> </div>
-               
+                    <h3 class="text-primary">Dashboard</h3> 
+                </div>
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
             <div class="container-fluid">
                 <!-- Start Page Content -->
-                     
-					
-					
-					  <div class="row">
-                   
-                   
-					
-					 <div class="container-fluid">
+				<div class="row">
+					<div class="container-fluid">
                 <!-- Start Page Content -->
-                  
-									
-									<?php  
-									        echo $error;
-									        echo $success; ?>
-									
-									
-								
-								
+			<?php  
+                echo $error;
+                echo $success; ?>	
 					    <div class="col-lg-12">
                         <div class="card card-outline-primary">
                             <div class="card-header">
@@ -165,7 +130,6 @@ if(isset($_POST['submit'] ))
                             <div class="card-body">
                                 <form action='' method='post' >
                                     <div class="form-body">
-                                       
                                         <hr>
                                         <div class="row p-t-20">
                                             <div class="col-md-12">
@@ -174,9 +138,7 @@ if(isset($_POST['submit'] ))
                                                     <input type="text" name="cat_title" class="form-control" placeholder="Category Name">
                                                    </div>
                                             </div>
-                                            <!--/span-->
-                                            
-                                    </div>
+                                        </div>
                                     <div class="form-actions">
                                         <input type="submit" name="submit" class="btn btn-success" value="save"> 
                                         <a href="dashboard.php" class="btn btn-inverse">Cancel</a>
@@ -185,77 +147,49 @@ if(isset($_POST['submit'] ))
                             </div>
                         </div>
                     </div>
-					
                 </div>
-					
-					   <div class="col-12">
-                        
-                       
+					<div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">Listed Categories</h4>
-                             
                                 <div class="table-responsive m-t-40">
                                     <table id="myTable" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
                                                 <th>ID#</th>
                                                 <th>Category Name</th>
-                                                
-                                              
-												  <th>Action</th>
-												 
+												<th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                           
-											
-											<?php
-												$sql="SELECT * FROM categories order by cat_id desc";
-												$query=mysqli_query($db,$sql);
-												
-													if(!mysqli_num_rows($query) > 0 )
-														{
-															echo '<td colspan="7"><center>No Categories-Data!</center></td>';
-														}
-													else
-														{				
-                                                            while($rows=mysqli_fetch_array($query))
-                                                                {
-                                                                            
-                                                                        
-                                                                        
-                                                                    echo ' <tr><td>'.$rows['cat_id'].'</td>
-                                                                    <td>'.$rows['cat_title'].'</td>
-                                                                    
-                                                                    
-                                                                    <td><a href="delete_category.php?cat_del='.$rows['cat_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
-                                                                    <a href="update_category.php?cat_upd='.$rows['cat_id'].'" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
-                                                                    </td></tr>';
-                                                                                
-                                                                                
-                                                                                
-                                                                }	
-														}
-												
-											
+                                        <tbody>	
+                                    <?php
+                                        $sql="SELECT * FROM categories order by cat_id desc";
+                                        $query=mysqli_query($db,$sql);
+                                        
+                                            if(!mysqli_num_rows($query) > 0 )
+                                                {
+                                                    echo '<td colspan="7"><center>No Categories-Data!</center></td>';
+                                                }
+                                            else
+                                                {				
+                                                while($rows=mysqli_fetch_array($query))
+                                                    {    
+                                                        echo ' <tr><td>'.$rows['cat_id'].'</td>
+                                                        <td>'.$rows['cat_title'].'</td>
+                                                        
+                                                        <td><a href="delete_category.php?cat_del='.$rows['cat_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
+                                                        <a href="update_category.php?cat_upd='.$rows['cat_id'].'" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
+                                                        </td></tr>';
+        
+                                                    }	
+                                                }
 											?>
-                                             
-                                            
-                                           
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-						 </div>
-					
-					
-					
-					
-					
-					
-					
+					</div>
                 </div>
                 <!-- End PAge Content -->
             </div>

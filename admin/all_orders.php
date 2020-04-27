@@ -106,6 +106,7 @@ session_start();
                        
                         <div class="card">
                             <div class="card-body">
+                            
                                 <h4 class="card-title">All user Orders</h4>
                              
                                 <div class="table-responsive m-t-40">
@@ -149,7 +150,7 @@ session_start();
                                                                         <td>'.$rows['address'].'</td>';
                                                                         ?>
                                                                         <?php 
-                                                            $status=$rows['status'];
+                                                            $status=$rows['p_status'];
                                                             if($status=="" or $status=="NULL")
                                                             {
                                                             ?>

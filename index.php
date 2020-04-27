@@ -42,12 +42,6 @@ if(isset($_SESSION["uid"])){
 				<li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="search"></li>
 				<li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
 			</ul>
-			<!-- <form class="navbar-form navbar-left">
-		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Search" id="search">
-		        </div>
-		        <button type="submit" class="btn btn-primary" id="search_btn"><span class="glyphicon glyphicon-search"></span></button>
-		     </form> -->
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
 					<div class="dropdown-menu" style="width:400px;">
@@ -62,39 +56,16 @@ if(isset($_SESSION["uid"])){
 							</div>
 							<div class="panel-body">
 								<div id="cart_product">
-								
 								</div>
 							</div>
 							<!-- <div class="panel-footer"></div> -->
 						</div>
 					</div>
 				</li>
-
-				<?php
-					echo '<li class="nav-item"><a href="login.php" class="nav-link active">login</a> </li>';
-					echo '<li class="nav-item"><a href="registration.php" class="nav-link active">signup</a> </li>';
-				?>
-				<!-- <li><a href="registration.php" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>SignIn</a>
-				<li><a href="login.php" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span>Login</a> -->
-					<!-- <ul class="dropdown-menu">
-						<div style="width:300px;">
-							<div class="panel panel-primary">
-								<div class="panel-heading">Login</div>
-								<div class="panel-heading">signup</div>
-								 <div class="panel-heading">
-									<form onsubmit="return false" id="login">
-										<label for="email">Email</label>
-										<input type="email" class="form-control" name="email" id="email" required/>
-										<label for="email">Password</label>
-										<input type="password" class="form-control" name="password" id="password" required/>
-										<p><br/></p>
-										<a href="#" style="color:white; list-style:none;">Forgotten Password</a><input type="submit" class="btn btn-success" style="float:right;">
-									</form>
-								</div> -->
-								<!-- <div class="panel-footer" id="e_msg"></div>
-							</div>
-						</div>
-					</ul> -->
+					<?php
+						echo '<li class="nav-item"><a href="login.php" class="nav-link active">login</a> </li>';
+						echo '<li class="nav-item"><a href="registration.php" class="nav-link active">signup</a> </li>';
+					?>
 				</li>
 			</ul>
 		</div>
@@ -109,22 +80,6 @@ if(isset($_SESSION["uid"])){
 			<div class="col-md-2 col-xs-12">
 				<div id="get_category">
 				</div>
-				<!--<div class="nav nav-pills nav-stacked">
-					<li class="active"><a href="#"><h4>Categories</h4></a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-				</div> -->
-				<!-- <div id="get_brand">
-				</div> -->
-				<!--<div class="nav nav-pills nav-stacked">
-					<li class="active"><a href="#"><h4>Brand</h4></a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-					<li><a href="#">Categories</a></li>
-				</div> -->
 			</div>
 			<div class="col-md-8 col-xs-12">
 				<div class="row">
@@ -137,17 +92,6 @@ if(isset($_SESSION["uid"])){
 						<div id="get_product">
 							<!--Here we get product jquery Ajax Request-->
 						</div>
-						<!--<div class="col-md-4">
-							<div class="panel panel-info">
-								<div class="panel-heading">Samsung Galaxy</div>
-								<div class="panel-body">
-									<img src="product_images/images.JPG"/>
-								</div>
-								<div class="panel-heading">$.500.00
-									<button style="float:right;" class="btn btn-danger btn-xs">AddToCart</button>
-								</div>
-							</div>
-						</div> -->
 					</div>
 					<div class="panel-footer" style="text-align: center">&copy; 2020 Wrapit bags</div>
 				</div>

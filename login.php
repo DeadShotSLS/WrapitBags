@@ -38,25 +38,19 @@ if(isset($_POST['submit']))   // if button is submit
 	
 	if(is_array($row))  // if matching records in the array & if everything is right
 		{
-				$_SESSION["uid"] = $row['user_id']; // put user id into temp session
-				$_SESSION["name"] = $row['username'];
-				header("refresh:1;url=index.php"); // redirect to index.php page
-
-				
+			$_SESSION["uid"] = $row['user_id']; // put user id into temp session
+			$_SESSION["name"] = $row['username'];
+			header("refresh:1;url=index.php"); // redirect to index.php page
 		} 
 	else
 		{
-				$message = "Invalid Username or Password!"; // throw error
+			$message = "Invalid Username or Password!"; // throw error
 		}
-	 }
-	
-	
+	 }	
 }
 ?>
   
-<!-- Form Mixin-->
-<!-- Input Mixin-->
-<!-- Button Mixin-->
+
 <!-- Pen Title-->
 <div class="pen-title">
   <h1>Login Form</h1>
@@ -64,7 +58,6 @@ if(isset($_POST['submit']))   // if button is submit
 <!-- Form Module-->
 <div class="module form-module">
   <div class="toggle">
-   
   </div>
   <div class="form">
     <h2>Login to your account</h2>
@@ -76,17 +69,9 @@ if(isset($_POST['submit']))   // if button is submit
       <input type="submit" id="buttn" name="submit" value="login" />
     </form>
   </div>
-  
   <div class="cta">Not registered?<a href="registration.php" style="color:#f30;"> Create an account</a></div>
 </div>
   <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-
-  
-
-   
-
-
-
 </body>
 
 </html>

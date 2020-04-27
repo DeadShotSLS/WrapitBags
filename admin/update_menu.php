@@ -11,12 +11,6 @@ session_start();
 if(isset($_POST['submit']))           //if upload btn is pressed
 {
 	
-			
-		
-			
-		  
-		
-		
 if(empty($_POST['p_name'])||empty($_POST['p_desc'])||$_POST['price']==''||$_POST['cat_name']=='')
 {	
 $error = 	'<div class="alert alert-danger alert-dismissible fade show">
@@ -37,7 +31,7 @@ $fname = $_FILES['file']['name'];
                 $extension = strtolower(end($extension));  
                 $fnew = uniqid().'.'.$extension;
 
-                $store = "product_images/".basename($fnew);                      // the path to store the upload image
+                $store = "../product_images/".basename($fnew);                      // the path to store the upload image
 
     if($extension == 'jpg'||$extension == 'png'||$extension == 'gif' )
     {        
@@ -55,7 +49,7 @@ $fname = $_FILES['file']['name'];
     else
         {
                                             
-        $sql = "update products set product_cat='$_POST[cat_name]',product_title='$_POST[p_name]',product_price='$_POST[price]',product_desc='$_POST[p_desc]',product_image='$fnew' where product_id='$_GET[menu_upd]'";  // update the submited data ino the database :images
+        $sql = "update products set product_cat='$_POST[cat_name]',product_title='$_POST[p_name]',product_price='$_POST[price]',product_desc='$_POST[p_desc]',product_image='$fnew',p_qty='$_POST[qty]' where product_id='$_GET[menu_upd]'";  // update the submited data ino the database :images
         mysqli_query($db, $sql); 
         move_uploaded_file($temp, $store);
 
@@ -210,10 +204,17 @@ $fname = $_FILES['file']['name'];
                                         </div>
                                         <!--/row-->
                                         <div class="row p-t-20">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">price </label>
                                                     <input type="text" name="price" class="form-control" value="<?php echo $roww['product_price'];?>" placeholder="Rs">
+                                                   </div>
+                                            </div>
+                                            
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label class="control-label">Quantity </label>
+                                                    <input type="text" name="qty" class="form-control" value="<?php echo $roww['p_qty'];?>" placeholder="">
                                                    </div>
                                             </div>
                                             <!--/span-->

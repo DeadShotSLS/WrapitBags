@@ -21,12 +21,7 @@ session_start();
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -37,9 +32,7 @@ session_start();
     </div>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
-        <!-- header header  -->
-        
-        <!-- End header header -->
+       
         <!-- Left Sidebar  -->
         <div class="left-sidebar">
             <!-- Sidebar scroll-->
@@ -102,15 +95,10 @@ session_start();
                 <!-- Start Page Content -->
                 <div class="row">
                     <div class="col-12">
-                        
-                       
-                      
-                       
-						
-						
+                     
 						<div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">All Menu data</h4>
+                                <h4 class="card-title">All Product data</h4>
                                 <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
 								
                                 <div class="table-responsive m-t-40">
@@ -122,6 +110,7 @@ session_start();
                                                 <th>Discription</th>
                                                 <th>Price</th>
                                                 <th>Image</th>
+                                                <th>qty</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -132,6 +121,7 @@ session_start();
                                                 <th>Discription</th>
                                                 <th>Price</th>
                                                 <th>Image</th>
+                                                <th>qty</th>
                                                <th>Action</th>
                                             </tr>
                                         </tfoot>
@@ -165,18 +155,17 @@ session_start();
                                                         <td><div class="col-md-3 col-lg-8 m-b-10">
                                                         <center><img src="../product_images/'.$rows['product_image'].'" class="img-responsive  radius" style="max-height:100px;max-width:150px;" /></center>
                                                         </div></td>
+
+                                                        <td>'.$rows['p_qty'].'</td>
                                                         
                                                     
                                                         <td><a href="delete_menu.php?menu_del='.$rows['product_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
                                                         <a href="update_menu.php?menu_upd='.$rows['product_id'].'" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
                                                         </td></tr>';
-                                                            
-                                                                    
-                                                                    
+      
                                                     }	
                                                 }
-												
-											
+
 											?>
                                         </tbody>
                                     </table>

@@ -5,7 +5,37 @@ include("../db.php");
 error_reporting(0);
 session_start();
 
+
+$sql="SELECT user_info.*, orders.* FROM user_info INNER JOIN orders ON user_info.user_id=orders.user_id where order_id='".$_GET['user_upd']."'";
+    $query=mysqli_query($db,$sql);
+    $rows=mysqli_fetch_array($query);
+    
+    $oid=$rows['order_id'];
+
+    if(isset($_POST['in_process'])){
+        $mql = "update orders set p_status='in process' where order_id='$oid'";
+        mysqli_query($db, $mql);
+        header("Refresh:0");
+    }
+    if(isset($_POST['closed'])){
+        echo "This is Button1 that is selected"; 
+        $mql2 = "update orders set p_status='closed' where order_id='$oid'";
+        mysqli_query($db, $mql2);
+        header("Refresh:0");
+    }
+    if(isset($_POST['rejected'])){
+        $mql3 = "update orders set p_status='rejected' where order_id='$oid'";
+        mysqli_query($db, $mql3);
+        header("Refresh:0");
+
+    }
+
+    
+                            
 ?>
+
+
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -119,26 +149,27 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">View user Orders</h4>
-                             
+                                
                                 <div class="table-responsive m-t-20">
+                                <form name="form" method="post">
                                     <table id="myTable" class="table table-bordered table-striped">
                                        
                                         <tbody>
-                                           <?php
-											$sql="SELECT user_info.*, orders.* FROM user_info INNER JOIN orders ON user_info.user_id=orders.user_id where order_id='".$_GET['user_upd']."'";
-												$query=mysqli_query($db,$sql);
-												$rows=mysqli_fetch_array($query);
+                                           <!-- <?php
+											// $sql="SELECT user_info.*, orders.* FROM user_info INNER JOIN orders ON user_info.user_id=orders.user_id where order_id='".$_GET['user_upd']."'";
+											// 	$query=mysqli_query($db,$sql);
+											// 	$rows=mysqli_fetch_array($query);
 												
-												
+												//$oid=$rows['order_id'];
 																		
-											?>
+											?> -->
 											
 											<tr>
 													<td><strong>username:</strong></td>
 												    <td><center><?php echo $rows['username']; ?></center></td>
 													   <td><center>
-													   <a href="javascript:void(0);" onClick="popUpWindow('order_update.php?form_id=<?php echo htmlentities($rows['order_id']);?>');" title="Update order">
-															 <button type="button" class="btn btn-primary">Take Action</button></a>
+													   <a href=""  title="Update order">
+															 <button type="button" class="btn btn-primary" disabled >Take Action</button></a>
 															 </center>
 											 </td>
 												  
@@ -147,36 +178,42 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
 											<tr>
 												<td><strong>Product ID:</strong></td>
 												    <td><center><?php echo $rows['product_id']; ?></center></td>
-													    <td><center>
-													   <a href="javascript:void(0);" onClick="popUpWindow('userprofile.php?newform_id=<?php echo htmlentities($rows['order_id']);?>');" title="Update order">
-														<button type="button" class="btn btn-primary">View User Detials</button></a>
-											
-													   </center></td>
+													<td><center>
+                                                    <input type="submit" name="in_process" value="On a Way" id="closed" class="btn btn-warning" style="font-weight:bold;"/>
+													</center></td>   
 												   																								
 											</tr>	
 											<tr>
 													<td><strong>Quantity:</strong></td>
-												    <td><center><?php echo $rows['qty']; ?></center></td>
+                                                    <td><center><?php echo $rows['qty']; ?></center></td>
+                                                    <td><center>
+                                                    <input type="submit" name="closed" value="Delivered" id="closed" class="btn btn-success" style="font-weight:bold;" />
+													   </center></td>
 													  
 												   																							
 											</tr>
 											<tr>
 													<td><strong>Price:</strong></td>
-												    <td><center>Rs.<?php echo $rows['price']; ?></center></td>
+                                                    <td><center>Rs.<?php echo $rows['price']; ?></center></td>
+                                                    <td><center>
+                                                    <input type="submit" name="rejected" value="cancelled" id="closed" class="btn btn-danger" style="font-weight:bold;" />
+													   </center></td>
 													   
 												   																							
 											</tr>
 											<tr>
 													<td><strong>Address:</strong></td>
-												    <td><center><?php echo $rows['address']; ?></center></td>
-													  
+                                                    <td><center><?php echo $rows['address']; ?></center></td>
+                                                    <td><center>
+                                                     </center></td>
 												   																							
 											</tr>
 											
 											<tr>
 													<td><strong>status:</strong></td>
-													<?php 
-                                                        $status=$rows['status'];
+                                                    <?php 
+                                                    
+                                                        $status=$rows['p_status'];
                                                         if($status=="" or $status=="NULL")
                                                         {
                                                         ?>
@@ -204,8 +241,7 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                                                         } 
                                                         ?>
 													  
-												   																							
-											</tr>
+                                                    </tr>
 											
 																				
 																															
@@ -215,7 +251,9 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                                            
                                         </tbody>
                                     </table>
+                                </form>
                                 </div>
+                                
                             </div>
                         </div>
 						 </div>

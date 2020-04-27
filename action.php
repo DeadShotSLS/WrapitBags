@@ -63,7 +63,6 @@ if(isset($_POST["getProduct"])){
 		while($row = mysqli_fetch_array($run_query)){
 			$pro_id    = $row['product_id'];
 			$pro_cat   = $row['product_cat'];
-			
 			$pro_title = $row['product_title'];
 			$pro_price = $row['product_price'];
 			$pro_image = $row['product_image'];
@@ -99,7 +98,6 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 	while($row=mysqli_fetch_array($run_query)){
 			$pro_id    = $row['product_id'];
 			$pro_cat   = $row['product_cat'];
-			
 			$pro_title = $row['product_title'];
 			$pro_price = $row['product_price'];
 			$pro_image = $row['product_image'];
@@ -125,7 +123,10 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 		
 
 		$p_id = $_POST["proId"];
-		
+
+		$query=mysqli_query($db,"SELECT product_price FROM products WHERE product_id='$p_id'");
+		$rows=mysqli_fetch_array($query);
+		$t_price=$rows['product_price'];
 
 		if(isset($_SESSION["uid"])){
 
@@ -143,9 +144,10 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 			";
 		} else {
 			$sql = "INSERT INTO `cart`
-			(`p_id`, `ip_add`, `user_id`, `qty`) 
-			VALUES ('$p_id','$ip_add','$user_id','1')";
+			(`p_id`, `ip_add`, `user_id`, `qty`, `t_price`) 
+			VALUES ('$p_id','$ip_add','$user_id','1','$t_price')";
 			if(mysqli_query($db,$sql)){
+
 				echo "
 					<div class='alert alert-success'>
 						<a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
@@ -166,8 +168,8 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 					exit();
 			}
 			$sql = "INSERT INTO `cart`
-			(`p_id`, `ip_add`, `user_id`, `qty`) 
-			VALUES ('$p_id','$ip_add','-1','1')";
+			(`p_id`, `ip_add`, `user_id`, `qty`, `t_price`) 
+			VALUES ('$p_id','$ip_add','-1','1','$t_price')";
 			if (mysqli_query($db,$sql)) {
 				echo "
 					<div class='alert alert-success'>
@@ -254,7 +256,7 @@ if (isset($_POST["Common"])) {
 					$cart_item_id = $row["id"];
 					$qty = $row["qty"];
 
-					//$_SESSION['cart_id'] = $row['id'];
+					
 
 					echo 
 						'<div class="row">
@@ -271,7 +273,10 @@ if (isset($_POST["Common"])) {
 								<div class="col-md-2"><input type="text" class="form-control qty" value="'.$qty.'" ></div>
 								<div class="col-md-2"><input type="text" class="form-control price" value="'.$product_price.'" readonly="readonly"></div>
 								<div class="col-md-2"><input type="text" class="form-control total" value="'.$product_price.'" readonly="readonly"></div>
+							
 							</div>';
+
+							$_SESSION["price"] = $product_price;
 				}
 				
 				echo '<div class="row">
@@ -285,10 +290,11 @@ if (isset($_POST["Common"])) {
 					
 				}else if(isset($_SESSION["uid"])){
 					//Paypal checkout form
+
 					
 					echo '
 						</form>
-						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+						<form action="checkout.php" method="post">
 							<input type="hidden" name="cmd" value="_cart">
 							<input type="hidden" name="business" value="sb-u8clg1474544@business.example.com">
 							<input type="hidden" name="upload" value="1">';
@@ -302,8 +308,11 @@ if (isset($_POST["Common"])) {
 									'<input type="hidden" name="item_name_'.$x.'" value="'.$row["product_title"].'">
 								  	 <input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
 								     <input type="hidden" name="amount_'.$x.'" value="'.$row["product_price"].'">
-								     <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
+									 <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
+									 
+									 
 								}
+								
 								
 							  
 							echo   
@@ -316,10 +325,14 @@ if (isset($_POST["Common"])) {
 									<ul class=" list-unstyled"  style="float:right;margin-right:120px;">
                                             
 											<li>
-											<input  type="submit" name="submit" style="padding-right:120px"
+											<input  type="submit" name="submit" style="padding-right:50px"
 											class="btn btn-info btn-lg" alt="PayPal Checkout"
-											value="Checkout">
+											value="Paypal Checkout">
 											</li>
+											<li>
+											<input  type="submit" name="submit" style="padding-right:25px; margin-top:5px;"
+											class="btn btn-info btn-lg" 
+											value="Payment on delivery">
                                         </ul>
 									</div>
 									
@@ -352,12 +365,19 @@ if (isset($_POST["removeItemFromCart"])) {
 
 //Update Item From cart
 if (isset($_POST["updateCartItem"])) {
+
 	$update_id = $_POST["update_id"];
+
+	$query=mysqli_query($db,"SELECT product_price FROM products WHERE product_id='$update_id'");
+	$rows=mysqli_fetch_array($query);
+	$t_price=$rows['product_price'];
+
 	$qty = $_POST["qty"];
+	$total = $t_price * $qty;
 	if (isset($_SESSION["uid"])) {
-		$sql = "UPDATE cart SET qty='$qty' WHERE p_id = '$update_id' AND user_id = '$_SESSION[uid]'";
+		$sql = "UPDATE cart SET qty='$qty',t_price='$total' WHERE p_id = '$update_id' AND user_id = '$_SESSION[uid]'";
 	}else{
-		$sql = "UPDATE cart SET qty='$qty' WHERE p_id = '$update_id' AND ip_add = '$ip_add'";
+		$sql = "UPDATE cart SET qty='$qty',t_price='$total' WHERE p_id = '$update_id' AND ip_add = '$ip_add'";
 	}
 	if(mysqli_query($db,$sql)){
 		echo "<div class='alert alert-info'>
