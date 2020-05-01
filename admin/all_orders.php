@@ -118,7 +118,8 @@ session_start();
                                                 <th>Quantity</th>
                                                 <th>price</th>
 												<th>Address</th>
-												<th>status</th>												
+                                                <th>status</th>
+                                                <th>Payment</th>												
 												<th>Mobile</th>
 												<th>Action</th>
 												 
@@ -177,18 +178,32 @@ session_start();
                                                             <?php 
                                                             } 
                                                             ?>
+                                                            <td data-column="payment"> 
+                                                            <?php 
+                                                                $pstatus=$rows['payment'];
+                                                                if($pstatus=="" or $pstatus=="NULL")
+                                                                {
+                                                                ?>
+                                                                <button type="button" class="btn btn-info" style="font-weight:bold;">pending</button>
+                                                                <?php 
+                                                                }
+                                                                if($pstatus=="success")
+                                                                { 
+                                                                ?>
+                                                                <button type="button" class="btn btn-success"><span class="fa fa-check-circle"  aria-hidden="true" ></span>Success</button>                                
+                                                                <?php 
+                                                                }
+                                                                ?>
+                                                                </td>
                                                             <?php																									
                                                                 echo '	<td>'.$rows['mobile'].'</td>';
                                                                 ?>
-                                                                            <td>
-                                                                            <a href="delete_orders.php?order_del=<?php echo $rows['order_id'];?>" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
+                                                                    <td>
+                                                                        <a href="delete_orders.php?order_del=<?php echo $rows['order_id'];?>" onclick="return confirm('Are you sure?');" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
                                                                     <?php
                                                                     echo '<a href="view_order.php?user_upd='.$rows['order_id'].'" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
                                                                         </td>
                                                                         </tr>';
-                                                            
-                                                            
-                                                            
 																		}	
 														}
 												

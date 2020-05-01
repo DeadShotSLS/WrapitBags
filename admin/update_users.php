@@ -53,7 +53,7 @@ if(isset($_POST['submit'] ))
 	else{
        
 	
-	$mql = "update user_info set username='$_POST[uname]', first_name='$_POST[fname]', last_name='$_POST[lname]',email='$_POST[email]',password='".md5($_POST[password],)."',mobile='$_POST[phone]' where user_id='$_GET[user_upd]' ";
+	$mql = "update user_info set username='$_POST[uname]', first_name='$_POST[fname]', last_name='$_POST[lname]',email='$_POST[email]',password='".md5($_POST['password'],)."',mobile='$_POST[phone]' where user_id='$_GET[user_upd]' ";
 	mysqli_query($db, $mql);
 			$success = 	'<div class="alert alert-success alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>

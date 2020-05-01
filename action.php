@@ -14,12 +14,13 @@ if(isset($_POST["category"])){
 			$cid = $row["cat_id"];
 			$cat_name = $row["cat_title"];
 			echo "
-					<li><a href='#' class='category' cid='$cid'>$cat_name</a></li>
+				<li><a href='#' class='category' cid='$cid'>$cat_name</a></li>
 			";
 		}
 		echo "</div>";
 	}
 }
+
 if(isset($_POST["brand"])){
 	$brand_query = "SELECT * FROM brands";
 	$run_query = mysqli_query($db,$brand_query);
@@ -82,13 +83,11 @@ if(isset($_POST["getProduct"])){
 		}
 	}
 }
-if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isset($_POST["search"])){
+
+if(isset($_POST["get_seleted_Category"]) || isset($_POST["search"])){
 	if(isset($_POST["get_seleted_Category"])){
 		$id = $_POST["cat_id"];
 		$sql = "SELECT * FROM products WHERE product_cat = '$id'";
-	}else if(isset($_POST["selectBrand"])){
-		$id = $_POST["brand_id"];
-		$sql = "SELECT * FROM products WHERE product_brand = '$id'";
 	}else {
 		$keyword = $_POST["keyword"];
 		$sql = "SELECT * FROM products WHERE product_keywords LIKE '%$keyword%'";
@@ -117,7 +116,6 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 		}
 	}
 	
-
 
 	if(isset($_POST["addToCart"])){
 		
@@ -156,6 +154,8 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["selectBrand"]) || isse
 				";
 			}
 		}
+
+
 		}else{
 			$sql = "SELECT id FROM cart WHERE ip_add = '$ip_add' AND p_id = '$p_id' AND user_id ='-1'";
 			$query = mysqli_query($db,$sql);
@@ -209,10 +209,12 @@ if (isset($_POST["Common"])) {
 
 	if (isset($_SESSION["uid"])) {
 		//When user is logged in this query will execute
-		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
+		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty 
+		FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
 	}else{
 		//When user is not logged in this query will execute
-		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.ip_add='$ip_add' AND b.user_id < 0";
+		$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty 
+		FROM products a,cart b WHERE a.product_id=b.p_id AND b.ip_add='$ip_add' AND b.user_id < 0";
 	}
 	$query = mysqli_query($db,$sql);
 	if (isset($_POST["getCartItem"])) {
@@ -294,6 +296,50 @@ if (isset($_POST["Common"])) {
 					
 					echo '
 						</form>
+						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+							<input type="hidden" name="cmd" value="_cart">
+							<input type="hidden" name="business" value="sb-u8clg1474544@business.example.com">
+							<input type="hidden" name="upload" value="1">';
+							  
+							$x=0;
+							$sql = "SELECT a.product_id,a.product_title,a.product_price,a.product_image,b.id,b.qty FROM products a,cart b WHERE a.product_id=b.p_id AND b.user_id='$_SESSION[uid]'";
+							$query = mysqli_query($db,$sql);
+							while($row=mysqli_fetch_array($query)){
+								$x++;
+								echo  	
+									'<input type="hidden" name="item_name_'.$x.'" value="'.$row["product_title"].'">
+								  	 <input type="hidden" name="item_number_'.$x.'" value="'.$x.'">
+								     <input type="hidden" name="amount_'.$x.'" value="'.$row["product_price"].'">
+									 <input type="hidden" name="quantity_'.$x.'" value="'.$row["qty"].'">';
+									 
+									 
+								}
+								
+								
+							  
+							echo   
+								'<input type="hidden" name="return" value="http://localhost/wrapitbags/payment_success.php"/>
+					                <input type="hidden" name="notify_url" value="http://localhost/wrapitbags/payment_success.php">
+									<input type="hidden" name="cancel_return" value="http://localhost/wrapitbags/cancel.php"/>
+									<input type="hidden" name="currency_code" value="USD"/>
+									<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
+									<div class=choise style="margin: 20px 0 0 200px;">
+									<ul class=" list-unstyled"  style="float:right;margin-right:40px;">
+                                            
+											<li>
+											<input  type="submit" name="submit" style="padding-right:50px"
+											class="btn btn-info btn-lg" alt="PayPal Checkout"
+											value="Paypal Checkout">
+											</li>
+											
+                                        </ul>
+									</div>
+									
+									
+								</form>';
+				
+					echo '
+						</form>
 						<form action="checkout.php" method="post">
 							<input type="hidden" name="cmd" value="_cart">
 							<input type="hidden" name="business" value="sb-u8clg1474544@business.example.com">
@@ -322,17 +368,14 @@ if (isset($_POST["Common"])) {
 									<input type="hidden" name="currency_code" value="USD"/>
 									<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
 									<div class=choise style="margin: 20px 0 0 200px;">
-									<ul class=" list-unstyled"  style="float:right;margin-right:120px;">
+									<ul class=" list-unstyled"  style="float:right;margin-right:10px;">
                                             
+											
 											<li>
-											<input  type="submit" name="submit" style="padding-right:50px"
-											class="btn btn-info btn-lg" alt="PayPal Checkout"
-											value="Paypal Checkout">
-											</li>
-											<li>
-											<input  type="submit" name="submit" style="padding-right:25px; margin-top:5px;"
+											<input  type="submit" name="submit" style="padding-right:25px;"
 											class="btn btn-info btn-lg" 
 											value="Payment on delivery">
+											</li>
                                         </ul>
 									</div>
 									

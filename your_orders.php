@@ -171,10 +171,11 @@ only screen and (max-width: 760px),
 						<table >
 						  <thead>
 							<tr>
-							<th>Item Id</th>
+							<th>Product name</th>
 							<th>Quantity</th>
 							<th>price</th>
-                            <th>status</th>						
+                            <th>status</th>
+                            <th>Payment</th>						
                             </tr>
 						  </thead>
 						  <tbody>
@@ -191,9 +192,13 @@ only screen and (max-width: 760px),
                                 {			      
                                 while($row=mysqli_fetch_array($query_res))
                                 {
+                                    $pid = $row['product_id'];
+                                    $query=mysqli_query($db,"SELECT product_title FROM products WHERE product_id='$pid'");
+                                    $rows=mysqli_fetch_array($query);
+                                    $name=$rows['product_title'];
                         ?>
                                 <tr>	
-                                <td data-column="Item"> <?php echo $row['product_id']; ?></td>
+                                <td data-column="Product name"> <?php echo $name; ?></td>
                                 <td data-column="Quantity"> <?php echo $row['qty']; ?></td>
                                 <td data-column="price">Rs<?php echo $row['price']; ?></td>
                                 <td data-column="status"> 
@@ -225,6 +230,29 @@ only screen and (max-width: 760px),
                                 <?php 
                                 } 
                                 ?>
+                                </td>
+                                <td data-column="payment"> 
+                            <?php 
+                                $pstatus=$row['payment'];
+                                if($pstatus=="" or $pstatus=="NULL")
+                                {
+                                ?>
+                                <button type="button" class="btn btn-info" style="font-weight:bold;">pending</button>
+                                <?php 
+                                }
+                                if($pstatus=="success")
+                                { 
+                                ?>
+                                <button type="button" class="btn btn-success"><span class="fa fa-check-circle"  aria-hidden="true" ></span>Success</button>                                
+                                <?php 
+                                }
+                                if($pstatus=="rejected")
+                                { 
+                                ?>
+                                <button type="button" class="btn btn-danger"><span class="fa fa-close"  aria-hidden="true" ></span>Cancelled</button>                                
+                                <?php 
+                                } 
+                                ?> 
                                 </td>
 								</tr>
 							<?php }} ?>					

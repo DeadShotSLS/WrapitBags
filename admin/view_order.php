@@ -13,18 +13,17 @@ $sql="SELECT user_info.*, orders.* FROM user_info INNER JOIN orders ON user_info
     $oid=$rows['order_id'];
 
     if(isset($_POST['in_process'])){
-        $mql = "update orders set p_status='in process' where order_id='$oid'";
+        $mql = "update orders set p_status='in process',payment='' where order_id='$oid'";
         mysqli_query($db, $mql);
         header("Refresh:0");
     }
-    if(isset($_POST['closed'])){
-        echo "This is Button1 that is selected"; 
-        $mql2 = "update orders set p_status='closed' where order_id='$oid'";
+    if(isset($_POST['closed'])){ 
+        $mql2 = "update orders set p_status='closed',payment='success' where order_id='$oid'";
         mysqli_query($db, $mql2);
         header("Refresh:0");
     }
     if(isset($_POST['rejected'])){
-        $mql3 = "update orders set p_status='rejected' where order_id='$oid'";
+        $mql3 = "update orders set p_status='rejected',payment='rejected' where order_id='$oid'";
         mysqli_query($db, $mql3);
         header("Refresh:0");
 
@@ -240,6 +239,24 @@ popUpWin = open(URLStr,'popUpWin', 'toolbar=no,location=no,directories=no,status
                                                         <?php 
                                                         } 
                                                         ?>
+                                                        <td data-column="payment"> 
+                                                        <?php 
+                                                        $pstatus=$rows['payment'];
+                                                        if($pstatus=="" or $pstatus=="NULL")
+                                                        {
+                                                        ?>
+                                                        <center><button type="button" class="btn btn-info" style="font-weight:bold;">Payment pending</button></center>
+                                                        <?php 
+                                                        }
+                                                        if($pstatus=="success")
+                                                        { ?>
+                                                        <center><button type="button" class="btn btn-success"><span class="fa fa-check-circle"  aria-hidden="true" ></span>Payment Success</button></center>
+                                                        <?php 
+                                                            } 
+                                                        ?>
+                                                        </td>
+
+                                                    
 													  
                                                     </tr>
 											

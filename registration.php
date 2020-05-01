@@ -49,7 +49,9 @@ if(isset($_POST['submit'] )) //if submit btn is pressed
 	else{
        
 	 //inserting values into db
-	$mql = "INSERT INTO user_info(first_name,last_name,email,password,mobile,address,username) VALUES('".$_POST['firstname']."','".$_POST['lastname']."','".$_POST['email']."','".md5($_POST['password'])."','".$_POST['phone']."','".$_POST['address']."','".$_POST['username']."')";
+	$mql = "INSERT INTO user_info(first_name,last_name,email,password,mobile,address,username) 
+   VALUES('".$_POST['firstname']."','".$_POST['lastname']."','".$_POST['email']."','".md5($_POST['password'])."',
+   '".$_POST['phone']."','".$_POST['address']."','".$_POST['username']."')";
 	mysqli_query($db, $mql);
 		$success = "Account Created successfully! <p>You will be redirected in <span id='counter'>5</span> second(s).</p>
       <script type='text/javascript'>
