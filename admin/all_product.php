@@ -14,18 +14,14 @@ session_start();
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <title>Wrapit Bags Admin</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <title>Wrapit Bags</title>
     <!-- Bootstrap Core CSS -->
     <link href="css/lib/bootstrap/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/helper.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:** -->
-    <!--[if lt IE 9]>
-    <script src="https:**oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https:**oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+    
 </head>
 
 <body class="fix-header fix-sidebar">
@@ -36,9 +32,7 @@ session_start();
     </div>
     <!-- Main wrapper  -->
     <div id="main-wrapper">
-        <!-- header header  -->
-         
-        <!-- End header header -->
+       
         <!-- Left Sidebar  -->
         <div class="left-sidebar">
             <!-- Sidebar scroll-->
@@ -64,15 +58,16 @@ session_start();
                             </ul>
                         </li>
                         
-                        <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive f-s-20 color-warning" aria-hidden="true"></i><span class="hide-menu">Store</span></a>
+                      <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive f-s-20 color-warning" aria-hidden="true"></i><span class="hide-menu">Store</span></a>
                             <ul aria-expanded="false" class="collapse">
-                            <li><a href="add_category.php">Add Category</a></li>
+                                <li><a href="add_category.php">Add Category</a></li>
                                 <li><a href="add_product.php">Add Products</a></li>
                                 <li><a href="all_product.php">All Products</a></li>
+                              
                                 
                             </ul>
                         </li>
-						 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Orders</span></a>
+						<li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Orders</span></a>
                             <ul aria-expanded="false" class="collapse">
 								<li><a href="all_orders.php">All Orders</a></li>
 								  
@@ -92,7 +87,7 @@ session_start();
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
                     <h3 class="text-primary">Dashboard</h3> </div>
-               
+                
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
@@ -100,86 +95,94 @@ session_start();
                 <!-- Start Page Content -->
                 <div class="row">
                     <div class="col-12">
-                        
-                       
-                        <div class="card">
+                     
+						<div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">All Registered users</h4>
-                             
+                                <h4 class="card-title">All Product data</h4>
+                                <h6 class="card-subtitle">Export data to Copy, CSV, Excel, PDF & Print</h6>
+								
                                 <div class="table-responsive m-t-40">
-                                    <table id="myTable" class="table table-bordered table-striped">
+                                    <table id="example23" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>Username</th>
-                                                <th>First-Name</th>
-                                                <th>Last-Name</th>
-                                                <th>Email</th>
-                                                <th>Phone</th>
-												<th>Address</th>												
-												 
-												  <th>Action</th>
-												 
+                                                <th>Category</th>
+                                                <th>Products</th>
+                                                <th>Discription</th>
+                                                <th>Price</th>
+                                                <th>Image</th>
+                                                <th>qty</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
+                                        <tfoot>
+                                            <tr>
+											 <th>Category</th>
+                                                <th>Products</th>
+                                                <th>Discription</th>
+                                                <th>Price</th>
+                                                <th>Image</th>
+                                                <th>qty</th>
+                                               <th>Action</th>
+                                            </tr>
+                                        </tfoot>
                                         <tbody>
+										
                                            
-											
-											<?php
-												$sql="SELECT * FROM user_info order by user_id desc";
-												$query=mysqli_query($db,$sql);
-												
-													if(!mysqli_num_rows($query) > 0 )
-														{
-															echo '<td colspan="7"><center>No User-Data!</center></td>';
-														}
-													else
-														{				
-                                                    while($rows=mysqli_fetch_array($query))
-                                                        {
-                                                                    
-                                                                
-                                                                
-                                                    echo ' <tr><td>'.$rows['username'].'</td>
-                                                                <td>'.$rows['first_name'].'</td>
-                                                                <td>'.$rows['last_name'].'</td>
-                                                                <td>'.$rows['email'].'</td>
-                                                                <td>'.$rows['mobile'].'</td>
-                                                                <td>'.$rows['address'].'</td>																								
-                                                                
-                                                                        <td><a href="delete_users.php?user_del='.$rows['user_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
-                                                                        <a href="update_users.php?user_upd='.$rows['user_id'].'" " class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
-                                                                    </td></tr>';
-                                                                        
-                                                                        
-                                                                        
-                                                        }	
-                                        }
-                                
-											
+                                        <?php
+                                        $sql="SELECT * FROM products order by product_id desc";
+                                        $query=mysqli_query($db,$sql);
+                                        
+                                            if(!mysqli_num_rows($query) > 0 )
+                                                {
+                                                    echo '<td colspan="11"><center>No Dish-Data!</center></td>';
+                                                }
+                                            else
+                                            {				
+                                                while($rows=mysqli_fetch_array($query))
+                                                    {
+                                                        $mql="select * from categories where cat_id='".$rows['product_cat']."'";
+                                                        $newquery=mysqli_query($db,$mql);
+                                                        $fetch=mysqli_fetch_array($newquery);
+                                                        
+                                                        
+                                                        echo '<tr><td>'.$fetch['cat_title'].'</td>
+                                                        
+                                                        <td>'.$rows['product_title'].'</td>
+                                                        <td>'.$rows['product_desc'].'</td>
+                                                        <td>Rs'.$rows['product_price'].'</td>
+                                                        
+                                                        
+                                                        <td><div class="col-md-3 col-lg-8 m-b-10">
+                                                        <center><img src="../product_images/'.$rows['product_image'].'" class="img-responsive  radius" style="max-height:100px;max-width:150px;" /></center>
+                                                        </div></td>
+
+                                                        <td>'.$rows['p_qty'].'</td>
+                                                        
+                                                    
+                                                        <td><a href="delete_product.php?product_del='.$rows['product_id'].'" class="btn btn-danger btn-flat btn-addon btn-xs m-b-10"><i class="fa fa-trash-o" style="font-size:16px"></i></a> 
+                                                        <a href="update_product.php?product_upd='.$rows['product_id'].'" class="btn btn-info btn-flat btn-addon btn-sm m-b-10 m-l-5"><i class="ti-settings"></i></a>
+                                                        </td></tr>';
+      
+                                                    }	
+                                                }
+
 											?>
-                                             
-                                            
-                                           
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-						 </div>
+						</div>
                       
-                            </div>
+                        </div>
                         </div>
                     </div>
                 </div>
                 <!-- End PAge Content -->
             </div>
             <!-- End Container fluid  -->
-			
-			
-			
-			
             <!-- footer -->
-            <footer class="footer"> © 2020 Wrapit Bags</footer>
+            <footer class="footer" style="text-align: center"> © 2020 Wrapit Bags</footer>
             <!-- End footer -->
         </div>
         <!-- End Page wrapper  -->

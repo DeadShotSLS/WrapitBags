@@ -19,19 +19,19 @@ if (isset($_GET["st"])) {
 		
 
 		include_once("db.php");
-		// $sql = "SELECT p_id,qty FROM cart WHERE user_id = '$cm_user_id'";
-		// $query = mysqli_query($db,$sql);
-		// if (mysqli_num_rows($query) > 0) {
-		// 	# code...
-		// 	while ($row=mysqli_fetch_array($query)) {
-		// 	$product_id[] = $row["p_id"];
-		// 	$qty[] = $row["qty"];
-		// 	}
+		$sql = "SELECT p_id,qty FROM cart WHERE user_id = '$cm_user_id'";
+		$query = mysqli_query($db,$sql);
+		if (mysqli_num_rows($query) > 0) {
+			# code...
+			while ($row=mysqli_fetch_array($query)) {
+			$product_id[] = $row["p_id"];
+			$qty[] = $row["qty"];
+			}
 
-		// 	for ($i=0; $i < count($product_id); $i++) { 
-		// 		$sql = "INSERT INTO orders (user_id,product_id,qty,trx_id,p_status) VALUES ('$cm_user_id','".$product_id[$i]."','".$qty[$i]."','$trx_id','$p_st')";
-		// 		mysqli_query($db,$sql);
-		// 	}
+			for ($i=0; $i < count($product_id); $i++) { 
+				$sql = "INSERT INTO orders (user_id,product_id,qty,trx_id,p_status) VALUES ('$cm_user_id','".$product_id[$i]."','".$qty[$i]."','$trx_id','$p_st')";
+				mysqli_query($db,$sql);
+			}
 
 			$sql = "DELETE FROM cart WHERE user_id = '$cm_user_id'";
 			if (mysqli_query($db,$sql)) {
@@ -76,7 +76,7 @@ if (isset($_GET["st"])) {
 										<div class="panel-body">
 											<h1>Thankyou </h1>
 											<hr/>
-											<p>Hello <?php echo "<b>".$_SESSION["username"]."</b>"; ?>,Your payment process is 
+											<p>Hello <?php echo "<b>".$_SESSION["name"]."</b>"; ?>,Your payment process is 
 											successfully completed and your Transaction id is <b><?php echo $trx_id; ?></b><br/>
 											you can continue your Shopping <br/></p>
 											<a href="index.php" class="btn btn-success btn-lg">Continue Shopping</a>

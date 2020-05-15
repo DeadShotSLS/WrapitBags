@@ -5,68 +5,64 @@ include("../db.php");
 error_reporting(0);
 session_start();
 
+
+
+
 if(isset($_POST['submit']))           //if upload btn is pressed
 {
-if(empty($_POST['p_name'])||empty($_POST['p_desc'])||$_POST['price']==''||$_POST['cat_name']==''||$_POST['p_key']=='')
+	
+if(empty($_POST['p_name'])||empty($_POST['p_desc'])||$_POST['price']==''||$_POST['cat_name']=='')
 {	
-$error = '<div class="alert alert-danger alert-dismissible fade show">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <strong>All fields Must be Fillup!</strong>
-    </div>';           
+$error = 	'<div class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>All fields Must be Fillup!</strong>
+        </div>';
+
+
+
 }
-else
-{
+	else
+		{
+		
 $fname = $_FILES['file']['name'];
-$temp = $_FILES['file']['tmp_name'];
-$fsize = $_FILES['file']['size'];
-$extension = explode('.',$fname);
-$extension = strtolower(end($extension));  
-$fnew = uniqid().'.'.$extension;
+                $temp = $_FILES['file']['tmp_name'];
+                $fsize = $_FILES['file']['size'];
+                $extension = explode('.',$fname);
+                $extension = strtolower(end($extension));  
+                $fnew = uniqid().'.'.$extension;
 
-$store = "../product_images/".basename($fnew);                      // the path to store the upload image
+                $store = "../product_images/".basename($fnew);                      // the path to store the upload image
 
-if($extension == 'jpg'||$extension == 'png'||$extension == 'gif' )  //image type
-{        
-if($fsize>=1000000)
-    {
+    if($extension == 'jpg'||$extension == 'png'||$extension == 'gif' )
+    {        
+    if($fsize>=1000000)
+        {
 
-
-$error = '<div class="alert alert-danger alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <strong>Max Image Size is 1024kb!</strong> Try different Image.
-    </div>';
-    }
-else
-    {          
-$sql = "INSERT INTO products(product_cat,product_title,product_price,product_desc,product_image,product_keywords) VALUE('".$_POST['cat_name']."','".$_POST['p_name']."','".$_POST['price']."','".$_POST['p_desc']."','".$fnew."','".$_POST['p_key']."')";  // store the submited data ino the database :images
-mysqli_query($db, $sql); 
-move_uploaded_file($temp, $store);
-
-    $success = 	'<div class="alert alert-success alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Congrass!</strong> New Product Added Successfully.
-            
-        </div>';
-
-
-    }
-}
-
-elseif($extension == '')
-{
-    $error = 	'<div class="alert alert-danger alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>select image</strong>
-        </div>';
-}
-else{
 
     $error = 	'<div class="alert alert-danger alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>invalid extension!</strong>png, jpg, Gif are accepted.
-        </div>';
-}               
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <strong>Max Image Size is 1024kb!</strong> Try different Image.
+                </div>';
+
+        }
+
+    else
+        {
+                                            
+        $sql = "update products set product_cat='$_POST[cat_name]',product_title='$_POST[p_name]',product_price='$_POST[price]',product_desc='$_POST[p_desc]',product_image='$fnew',p_qty='$_POST[qty]' where product_id='$_GET[product_upd]'";  // update the submited data ino the database :images
+        mysqli_query($db, $sql); 
+        move_uploaded_file($temp, $store);
+
+            $success = 	'<div class="alert alert-success alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Record</strong>Updated.
+                    </div>';
+
+            }
+        }
+	   
     }
+
 }
 
 ?>
@@ -110,7 +106,7 @@ else{
             <div class="scroll-sidebar">
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
-                    <ul id="sidebarnav">
+                   <ul id="sidebarnav">
                         <li class="nav-devider"></li>
                         <li class="nav-label">Home</li>
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-tachometer"></i><span class="hide-menu">Dashboard</span></a>
@@ -128,13 +124,14 @@ else{
                                
                             </ul>
                         </li>
-                        
+                       
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive f-s-20 color-warning" aria-hidden="true"></i><span class="hide-menu">Store</span></a>
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="add_category.php">Add Category</a></li>
-                                <li><a href="add_menu.php">Add Products</a></li>
-                                <li><a href="all_menu.php">All Products</a></li>
-                               
+                                <li><a href="add_product.php">Add Products</a></li>
+                                <li><a href="all_product.php">All Products</a></li>
+                              
+                                
                             </ul>
                         </li>
 						 <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span class="hide-menu">Orders</span></a>
@@ -157,7 +154,12 @@ else{
             <div class="row page-titles">
                 <div class="col-md-5 align-self-center">
                     <h3 class="text-primary">Dashboard</h3> </div>
-                
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                </div>
             </div>
             <!-- End Bread crumb -->
             <!-- Container fluid  -->
@@ -165,8 +167,8 @@ else{
                 <!-- Start Page Content -->
                   
 									
-            <?php  echo $error;
-                    echo $success; ?>
+									<?php  echo $error;
+									        echo $success; ?>
 									
 									
 								
@@ -174,35 +176,45 @@ else{
 					    <div class="col-lg-12">
                         <div class="card card-outline-primary">
                             <div class="card-header">
-                                <h4 class="m-b-0 text-white">Add Product to Store</h4>
+                                <h4 class="m-b-0 text-white">Add Product to Category</h4>
                             </div>
                             <div class="card-body">
                                 <form action='' method='post'  enctype="multipart/form-data">
                                     <div class="form-body">
-                                       
+                                        <?php $qml ="select * from products where product_id='$_GET[product_upd]'";
+													$rest=mysqli_query($db, $qml); 
+													$roww=mysqli_fetch_array($rest);
+														?>
                                         <hr>
                                         <div class="row p-t-20">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Product Name</label>
-                                                    <input type="text" name="p_name" class="form-control" placeholder="Enter Product Name">
+                                                    <input type="text" name="p_name" value="<?php echo $roww['product_title'];?>" class="form-control" placeholder="Enter Product Name">
                                                    </div>
                                             </div>
                                             <!--/span-->
                                             <div class="col-md-6">
                                                 <div class="form-group has-danger">
                                                     <label class="control-label">Discription</label>
-                                                    <input type="text" name="p_desc" class="form-control form-control-danger" placeholder="Enter Description">
+                                                    <input type="text" name="p_desc" class="form-control form-control-danger" value="<?php echo $roww['product_desc'];?>"  placeholder="Enter Description">
                                                     </div>
                                             </div>
                                             <!--/span-->
                                         </div>
                                         <!--/row-->
                                         <div class="row p-t-20">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label class="control-label">price </label>
-                                                    <input type="text" name="price" class="form-control" placeholder="Rs">
+                                                    <input type="text" name="price" class="form-control" value="<?php echo $roww['product_price'];?>" placeholder="Rs">
+                                                   </div>
+                                            </div>
+                                            
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label class="control-label">Quantity </label>
+                                                    <input type="text" name="qty" class="form-control" value="<?php echo $roww['p_qty'];?>" placeholder="">
                                                    </div>
                                             </div>
                                             <!--/span-->
@@ -239,7 +251,7 @@ else{
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="control-label">Keywords</label>
-                                                    <input type="text" name="p_key" class="form-control" placeholder="Enter Keywords">
+                                                    <input type="text" name="p_key" class="form-control" value="<?php echo $roww['product_keywords'];?>" placeholder="Enter Keywords">
                                                    </div>
                                             </div>
 											

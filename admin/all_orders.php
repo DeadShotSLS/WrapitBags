@@ -69,8 +69,8 @@ session_start();
                         <li> <a class="has-arrow  " href="#" aria-expanded="false"><i class="fa fa-archive f-s-20 color-warning" aria-hidden="true"></i><span class="hide-menu">Store</span></a>
                             <ul aria-expanded="false" class="collapse">
                             <li><a href="add_category.php">Add Category</a></li>
-                                <li><a href="add_menu.php">Add Products</a></li>
-                                <li><a href="all_menu.php">All Products</a></li>
+                                <li><a href="add_product.php">Add Products</a></li>
+                                <li><a href="all_product.php">All Products</a></li>
                                 
                             </ul>
                         </li>

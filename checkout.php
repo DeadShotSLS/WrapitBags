@@ -81,7 +81,7 @@ session_start();
 										<div class="panel-body">
 											<h1>Thankyou </h1>
 											<hr/>
-											<p>Hello <?php echo "<b>".$_SESSION["username"]."</b>"; ?>,Your payment process is 
+											<p>Hello <?php echo "<b>".$_SESSION["name"]."</b>"; ?>,Your payment process is 
 											successfully completed<br/>
 											you can continue your Shopping <br/></p>
 											<a href="profile.php" class="btn btn-success btn-lg">Continue Shopping</a>

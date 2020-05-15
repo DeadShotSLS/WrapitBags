@@ -47,7 +47,7 @@ if(isset($_POST['submit1'] ))
 	
 	$check_email = mysqli_query($db, "SELECT email FROM admin where email = '".$_POST['cr_email']."' ");
 	
-	  $check_code = mysqli_query($db, "SELECT adm_id FROM admin where code = '".$_POST['code']."' ");
+	$check_code = mysqli_query($db, "SELECT adm_id FROM admin where code = '".$_POST['code']."' ");
 
 	
 	if($_POST['cr_pass'] != $_POST['cr_cpass']){

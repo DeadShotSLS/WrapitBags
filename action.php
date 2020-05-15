@@ -2,6 +2,7 @@
 session_start();
 $ip_add = getenv("REMOTE_ADDR");
 include "db.php";
+//load categories
 if(isset($_POST["category"])){
 	$category_query = "SELECT * FROM categories";
 	$run_query = mysqli_query($db,$category_query) or die(mysqli_error($db));
@@ -20,7 +21,6 @@ if(isset($_POST["category"])){
 		echo "</div>";
 	}
 }
-
 if(isset($_POST["brand"])){
 	$brand_query = "SELECT * FROM brands";
 	$run_query = mysqli_query($db,$brand_query);
@@ -39,6 +39,7 @@ if(isset($_POST["brand"])){
 		echo "</div>";
 	}
 }
+//load products to main page
 if(isset($_POST["page"])){
 	$sql = "SELECT * FROM products";
 	$run_query = mysqli_query($db,$sql);
@@ -88,11 +89,13 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["search"])){
 	if(isset($_POST["get_seleted_Category"])){
 		$id = $_POST["cat_id"];
 		$sql = "SELECT * FROM products WHERE product_cat = '$id'";
+		//search from categories
 	}else {
 		$keyword = $_POST["keyword"];
 		$sql = "SELECT * FROM products WHERE product_keywords LIKE '%$keyword%'";
-	}
-	
+		//search from keyword
+	}	
+	//load selected data
 	$run_query = mysqli_query($db,$sql);
 	while($row=mysqli_fetch_array($run_query)){
 			$pro_id    = $row['product_id'];
@@ -116,7 +119,7 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["search"])){
 		}
 	}
 	
-
+	// add to cart
 	if(isset($_POST["addToCart"])){
 		
 
@@ -292,8 +295,6 @@ if (isset($_POST["Common"])) {
 					
 				}else if(isset($_SESSION["uid"])){
 					//Paypal checkout form
-
-					
 					echo '
 						</form>
 						<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
@@ -337,7 +338,7 @@ if (isset($_POST["Common"])) {
 									
 									
 								</form>';
-				
+					//pay on delivery form
 					echo '
 						</form>
 						<form action="checkout.php" method="post">
@@ -362,22 +363,22 @@ if (isset($_POST["Common"])) {
 								
 							  
 							echo   
-								'<input type="hidden" name="return" value="http://localhost/wrapitbags/payment_success.php"/>
-					                <input type="hidden" name="notify_url" value="http://localhost/wrapitbags/payment_success.php">
-									<input type="hidden" name="cancel_return" value="http://localhost/wrapitbags/cancel.php"/>
-									<input type="hidden" name="currency_code" value="USD"/>
-									<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
-									<div class=choise style="margin: 20px 0 0 200px;">
-									<ul class=" list-unstyled"  style="float:right;margin-right:10px;">
-                                            
-											
-											<li>
-											<input  type="submit" name="submit" style="padding-right:25px;"
-											class="btn btn-info btn-lg" 
-											value="Payment on delivery">
-											</li>
-                                        </ul>
-									</div>
+								'<input type="hidden" name="return" value=""/>
+								<input type="hidden" name="notify_url" value="">
+								<input type="hidden" name="cancel_return" value="http://localhost/wrapitbags/cancel.php"/>
+								<input type="hidden" name="currency_code" value="USD"/>
+								<input type="hidden" name="custom" value="'.$_SESSION["uid"].'"/>
+								<div class=choise style="margin: 20px 0 0 200px;">
+								<ul class=" list-unstyled"  style="float:right;margin-right:10px;">
+										
+										
+										<li>
+										<input  type="submit" name="submit" style="padding-right:25px;"
+										class="btn btn-info btn-lg" 
+										value="Payment on delivery">
+										</li>
+									</ul>
+								</div>
 									
 									
 								</form>';
@@ -416,7 +417,7 @@ if (isset($_POST["updateCartItem"])) {
 	$t_price=$rows['product_price'];
 
 	$qty = $_POST["qty"];
-	$total = $t_price * $qty;
+	$total = $t_price * $qty; // count total price for add cart table
 	if (isset($_SESSION["uid"])) {
 		$sql = "UPDATE cart SET qty='$qty',t_price='$total' WHERE p_id = '$update_id' AND user_id = '$_SESSION[uid]'";
 	}else{
