@@ -8,12 +8,12 @@ include("db.php"); // connection
 if(isset($_POST['submit'] )) //if submit btn is pressed
 {
      if(empty($_POST['firstname']) ||  //fetching and find if its empty
-   	    empty($_POST['lastname'])|| 
-		empty($_POST['email']) ||  
-		empty($_POST['phone'])||
-		empty($_POST['password'])||
-		empty($_POST['cpassword']) ||
-		empty($_POST['cpassword']))
+         empty($_POST['lastname'])|| 
+         empty($_POST['email']) ||  
+         empty($_POST['phone'])||
+         empty($_POST['password'])||
+         empty($_POST['cpassword']) ||
+         empty($_POST['cpassword']))
 		{
          $message = "All fields must be Required!";
 		}

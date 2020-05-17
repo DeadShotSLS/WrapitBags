@@ -67,12 +67,65 @@ if(isset($_POST['submit'] ))
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
     <title>Wrapit Bags</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+		<script src="js/jquery2.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<!-- jQuery library -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<!-- Latest compiled JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+		<script src="main.js"></script>
+        <link rel="stylesheet" type="text/css" href="style.css">
     <!-- Bootstrap Core CSS -->
 </head>
 
-<body class="fix-header">
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">	
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse" aria-expanded="false">
+                        <span class="sr-only"> navigation toggle</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="#" class="navbar-brand">Wrapit bags</a>
+                </div>
+            <div class="collapse navbar-collapse" id="collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="index.php"><span class="glyphicon glyphicon-home"></span>Home</a></li>
+                    <li><a href="index.php"><span class="glyphicon glyphicon-modal-window"></span>Product</a></li>
+                    <li style="width:300px;left:10px;top:10px;"><input type="text" class="form-control" id="search"></li>
+                    <li style="top:10px;left:20px;"><button class="btn btn-primary" id="search_btn">Search</button></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-shopping-cart"></span>Cart<span class="badge">0</span></a>
+                        <div class="dropdown-menu" style="width:400px;">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-md-3">Sl.No</div>
+                                        <div class="col-md-3">Product Image</div>
+                                        <div class="col-md-3">Product Name</div>
+                                        <div class="col-md-3">Price in Rs.</div>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="cart_product">
+                                    
+                                    </div>
+                                </div>
+                                <!-- <div class="panel-footer"></div> -->
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
     <!-- Main wrapper  -->
     <div id="main-wrapper">
         <div class="page-wrapper" style="height:1200px;">
