@@ -68,6 +68,9 @@ if(isset($_POST["getProduct"])){
 			$pro_title = $row['product_title'];
 			$pro_price = $row['product_price'];
 			$pro_image = $row['product_image'];
+
+
+
 			echo "
 			<div class='col-md-4'>
 				<div class='panel panel-info'>
@@ -77,6 +80,8 @@ if(isset($_POST["getProduct"])){
 					</div>
 					<div class='panel-heading'>Rs.$pro_price.00
 						<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>AddToCart</button>
+						<a href='view_product.php?pid=".$pro_id."' style='float:right; margin-right:10px;' id='product_view' class='btn btn-info btn-xs'>ViewItem</a>
+
 					</div>
 				</div>
 			</div>	
@@ -112,6 +117,7 @@ if(isset($_POST["get_seleted_Category"]) || isset($_POST["search"])){
 					</div>
 					<div class='panel-heading'>Rs.$pro_price.00
 						<button pid='$pro_id' style='float:right;' id='product' class='btn btn-danger btn-xs'>AddToCart</button>
+						<a href='view_product.php?pid=".$pro_id."' style='float:right; margin-right:10px;' id='product_view' class='btn btn-info btn-xs'>ViewItem</a>
 					</div>
 				</div>
 			</div>	
